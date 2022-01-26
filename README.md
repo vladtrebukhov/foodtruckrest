@@ -24,11 +24,15 @@ I believe this solution can be scaled well with many cities and millions of entr
 
 The tradeoff here is made with the space complexity; we must store two Map objects for each city, using more space than a solution which avoids preprocessing of data and simply calculates the proper response on search query. This kind of solution would save space, but would take much longer.
 
+Estimation For Large Dataset:
+
+25kb/entry * 10,000,000 Food Trucks * 100 cities * 2 Maps = ~50TB data to store
+
 ***Given more time/Done differently***:
 1. Error handling/validation of inputs
 2. Refactoring and adding proper responses (not undefined/empty objects)
 3. Wrapper class for entry point at ApiGateway
 4. I don't work in node and never used express, so learn more about these tools.
-5. More robust unit testing each method. I am used to testing with Jasmine pre-configured in Angular, for some reason the foodTruckService methods are not recognized in the `spec` file causing all tests to fail.
+5. More robust unit testing each method. I am used to testing with Jasmine pre-configured in Angular, could not figure out proper boilerplate that is already configured with the Angular CLI. FoodTruckService methods are not recognized in the `spec` file causing tests to not run. Logic should still be sound however.
 6. Unit test API gateway.
 

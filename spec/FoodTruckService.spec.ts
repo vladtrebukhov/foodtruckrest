@@ -19,6 +19,7 @@ describe('FoodTruckService Class Tests', () => {
     });
 
     describe('requestFoodTruckData', () => {
+        // @ts-ignore
         const buildFilteredFoodTruckData = spyOn(foodTruckService, 'buildFilteredFoodTruckData');
 
         foodTruckService.requestFoodTruckData();
@@ -35,6 +36,7 @@ describe('FoodTruckService Class Tests', () => {
             // @ts-ignore
             const addFoodTruckToLocationMap = spyOn(foodTruckService, 'addFoodTruckToLocationMap');
 
+            // @ts-ignore
             foodTruckService.buildFilteredFoodTruckData(listOfFoodTrucks);
 
             expect(addFoodTruckToBlocksMap).toHaveBeenCalled();
@@ -44,12 +46,14 @@ describe('FoodTruckService Class Tests', () => {
 
     describe("getFoodTrucksByBlock", () => {
         it('returns the FoodTruck array object from foodTrucksByBlock Map', () => {
+            // @ts-ignore
             expect(foodTruckService.getFoodTrucksByBlock("5")).toEqual(listOfFoodTrucks);
         })
     });
 
     describe('getFoodTrucksByLocation', () => {
         it ('returns the FoodTruck object from foodTrucksById Map', () => {
+            // @ts-ignore
             expect(foodTruckService.getFoodTruckByLocation("1")).toEqual(listOfFoodTrucks[0]);
         })
     });
@@ -59,10 +63,12 @@ describe('FoodTruckService Class Tests', () => {
             expect(foodTruckService.processSearch("5,", "10")).toEqual(StatusCodes.FAILURE);
         })
         it('calls getFoodTruckByLocation if locationid is present', () => {
+            // @ts-ignore
             expect(foodTruckService.processSearch("5", undefined)).toEqual(foodTruckService.getFoodTruckByLocation("5"));
         });
 
         it('calls getFoodTrucksByBlock if block is present', () => {
+            // @ts-ignore
             expect(foodTruckService.processSearch(undefined, "1")).toEqual(foodTruckService.getFoodTrucksByBlock("1"));
         })
     });

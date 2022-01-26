@@ -15,33 +15,16 @@ export class FoodTruckService {
 
     public requestFoodTruckData = async () => {
         // Initial API call to retrieve SF food truck data
-        try {
-            const response = await fetch('https://data.sfgov.org/resource/rqzj-sfat.json');
-            const foodTrucks = await response.json();
-            this.buildFilteredFoodTruckData(foodTrucks);
-            return StatusCodes.SUCCESS;
-        } catch(err) {
-            return err;
+        if (this.foodTrucksByBlock.size === 0 || this.foodTrucksById.size === 0) {
+            try {
+                const response = await fetch('https://data.sfgov.org/resource/rqzj-sfat.json');
+                const foodTrucks = await response.json();
+                this.buildFilteredFoodTruckData(foodTrucks);
+                return StatusCodes.SUCCESS;
+            } catch(err) {
+                return err;
+            }
         }
-    }
-
-    //Processes raw food truck data into Maps' filtered by block and locationid
-    //Build a Map for each cities' (in this case only 1 city) food truck data for fast O(1) retrieval from Map when searching
-    public buildFilteredFoodTruckData = (foodTrucks: FoodTruck[]): void => {
-        foodTrucks.forEach(foodTruck => {
-            const { block, objectid } = foodTruck;
-            this.addFoodTruckToBlocksMap(block, foodTruck);
-            this.addFoodTruckToLocationMap(objectid, foodTruck);
-        });
-    }
-
-    //No error handling/response other than the successful object if block is not found, so undefined is a possible return value
-    public getFoodTrucksByBlock(blockId: string): FoodTruck[] | undefined {
-        return this.foodTrucksByBlock.get(blockId);
-    }
-    //Same as above
-    public getFoodTruckByLocation(objectid: string): FoodTruck | undefined {
-        return this.foodTrucksById.get(objectid);
     }
 
     //If locationid and block id are both either missing or present, return failure code
@@ -72,6 +55,25 @@ export class FoodTruckService {
         this.addFoodTruckToLocationMap(objectid, foodTruck);
         this.addFoodTruckToBlocksMap(block, foodTruck);
         return StatusCodes.SUCCESS;
+    }
+
+    //Processes raw food truck data into Maps' filtered by block and locationid
+    //Build a Map for each cities' (in this case only 1 city) food truck data for fast O(1) retrieval from Map when searching
+    private buildFilteredFoodTruckData = (foodTrucks: FoodTruck[]): void => {
+        foodTrucks.forEach(foodTruck => {
+            const { block, objectid } = foodTruck;
+            this.addFoodTruckToBlocksMap(block, foodTruck);
+            this.addFoodTruckToLocationMap(objectid, foodTruck);
+        });
+    }
+
+    //No error handling/response other than the successful object if block is not found, so undefined is a possible return value
+    private getFoodTrucksByBlock(blockId: string): FoodTruck[] | undefined {
+        return this.foodTrucksByBlock.get(blockId);
+    }
+    //Same as above
+    private getFoodTruckByLocation(objectid: string): FoodTruck | undefined {
+        return this.foodTrucksById.get(objectid);
     }
 
     //Reusable method to add a food truck by block. Used initially to build Map
