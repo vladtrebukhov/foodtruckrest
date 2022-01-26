@@ -6,7 +6,7 @@
 *Set up*:
 1. Run `npm install` to install the `node_modules` directory which contains the dependencies used for development.
 2. Since the service uses Typescript, compile with the command `tsc` in the parent directory. This will create a `dist` folder that will contain the compiled JS code running the application.
-3. To run, from the parent directory, execute `npm start`. This is an alias for `node .dist/api_gateway.js`. You should see a message saying `Server running on port 4000`.
+3. To run, from the parent directory, execute `npm start`. This is an alias for `node .dist/ApiGateway.js`. You should see a message saying `Server running on port 4000`.
 4. The urls to test on localhost are `/`, `/search/?locationid=value`, `search/?block=value` and `/add`. The first request that should be made is to the `/` route to populate the data structures built for the solution. I suggest using the free Chrome extension `Talend API Tester` to easily test the requests.
 5. For testing, simply run `npm test`. All tests fail due to configuration I could not figure out due to time constraints :(
 ****
