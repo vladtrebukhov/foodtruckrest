@@ -8,7 +8,7 @@
 2. Since the service uses Typescript, compile with the command `tsc` in the parent directory. This will create a `dist` folder that will contain the compiled JS code running the application.
 3. To run, from the parent directory, execute `npm start`. This is an alias for `node .dist/ApiGateway.js`. You should see a message saying `Server running on port 4000`.
 4. The urls to test on localhost are `/`, `/search/?locationid=value`, `search/?block=value` and `/add`. The first request that should be made is to the `/` route to populate the data structures built for the solution. I suggest using the free Chrome extension `Talend API Tester` to easily test the requests.
-5. For testing, simply run `npm test`. All tests fail due to configuration I could not figure out due to time constraints :(
+5. For testing, simply run `npm test`. All tests are written, but fail due to the testing setup configuration :( (more information below). Logic should be sound however.
 ****
 
 *The problem and solution*:
@@ -33,6 +33,6 @@ Estimation For Large Dataset:
 2. Refactoring and adding proper responses (not undefined/empty objects)
 3. Wrapper class for entry point at ApiGateway
 4. I don't work in node and never used express, so learn more about these tools.
-5. More robust unit testing each method. I am used to testing with Jasmine pre-configured in Angular, could not figure out proper boilerplate that is already configured with the Angular CLI. FoodTruckService methods are not recognized in the `spec` file causing tests to not run. Logic should still be sound however.
+5. More robust unit testing each method. I am used to testing with Jasmine pre-configured in Angular with TestBed and chose to spend time solving the problem rather than battleing with boilerplate code for unit tests. FoodTruckService class methods are not recognized in the `spec` file causing tests to fail.
 6. Unit test API gateway.
 
